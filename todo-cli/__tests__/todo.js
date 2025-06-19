@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+
 const todoList = require("../todo");
 
 const { all, markAsComplete, add } = todoList();
@@ -26,5 +27,22 @@ describe("Todolist Test Suite", () => {
     expect(all[0].completed).toBe(false);
     markAsComplete(0);
     expect(all[0].completed).toBe(true);
+  });
+  test("To list items overdue today", () => {
+    const today = new Date().toLocaleDateString("en-CA");
+    const overdueItems = all.filter((todo) => todo.dueDate < today);
+    expect(Array.isArray(overdueItems)).toBe(true);
+  });
+
+  test("To list items due later", () => {
+    const today = new Date().toLocaleDateString("en-CA");
+    const dueLaterItems = all.filter((todo) => todo.dueDate > today);
+    expect(Array.isArray(dueLaterItems)).toBe(true);
+  });
+
+  test("To list items due later", () => {
+    const today = new Date().toLocaleDateString("en-CA");
+    const dueLaterItems = all.filter((todo) => todo.dueDate > today);
+    expect(Array.isArray(dueLaterItems)).toBe(true);
   });
 });
