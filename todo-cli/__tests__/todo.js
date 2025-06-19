@@ -34,10 +34,10 @@ describe("Todolist Test Suite", () => {
     expect(Array.isArray(overdueItems)).toBe(true);
   });
 
-  test("To list items due later", () => {
+  test("To list items due today", () => {
     const today = new Date().toLocaleDateString("en-CA");
-    const dueLaterItems = all.filter((todo) => todo.dueDate > today);
-    expect(Array.isArray(dueLaterItems)).toBe(true);
+    const dueTodayItems = all.filter((todo) => todo.dueDate === today);
+    expect(Array.isArray(dueTodayItems)).toBe(true);
   });
 
   test("To list items due later", () => {
