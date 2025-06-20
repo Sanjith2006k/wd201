@@ -14,20 +14,30 @@ describe("Todolist Test Suite", () => {
   });
 
   test("Should add new todo", () => {
-    const todoItemscount = all.length;
+    const initialLength = all.length;
     add({
-      title: "Test todo",
+      title: "Test add",
       completed: false,
       dueDate: new Date().toLocaleDateString("en-CA"),
     });
-    expect(all.length).toBe(todoItemscount + 1);
+    expect(all.length).toBe(initialLength + 1);
+    const addedItem = all[all.length - 1];
+    expect(addedItem.title).toBe("Test add");
+    expect(addedItem.completed).toBe(false);
   });
 
   test("Should mark a todo as complete", () => {
-    expect(all[0].completed).toBe(false);
-    markAsComplete(0);
-    expect(all[0].completed).toBe(true);
+    add({
+      title: "Complete me",
+      completed: false,
+      dueDate: new Date().toLocaleDateString("en-CA"),
+    });
+    const index = all.length - 1;
+    expect(all[index].completed).toBe(false);
+    markAsComplete(index);
+    expect(all[index].completed).toBe(true);
   });
+
   test("To list items overdue today", () => {
     const today = new Date().toLocaleDateString("en-CA");
     const overdueItems = all.filter((todo) => todo.dueDate < today);
